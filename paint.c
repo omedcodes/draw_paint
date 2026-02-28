@@ -5,6 +5,8 @@
 #define WIDTH 900
 #define HEIGHT 600
 
+#define TARGET_FPS 60
+
 int main(int argc, char *argv[]) 
 {
     (void)argc; (void)argv;
@@ -13,7 +15,14 @@ int main(int argc, char *argv[])
 
     SDL_Window *window = SDL_CreateWindow("Draw Paint", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0);
 
+    SDL_Surface *surface = SDL_GetWindowSurface(window);
+    SDL_Rect rect = {50, 50, 100, 100};
+    SDL_FillRect(surface, &rect, 0x00FF0000);
+    SDL_UpdateWindowSurface(window);
+
     bool done = false;
+
+    float delay_milliseconds = (1.0f / TARGET_FPS) * 1000;
     while (!done) 
     {
         SDL_Event event;
@@ -22,6 +31,7 @@ int main(int argc, char *argv[])
             if (event.type == SDL_QUIT)
                 done = true;
         }
+        SDL_Delay(delay_milliseconds);
     }
 
     SDL_DestroyWindow(window);
