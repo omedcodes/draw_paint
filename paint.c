@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
     bool draw = false;
 
     float delay_milliseconds = (1.0f / TARGET_FPS) * 1000;
+    int x, y;
     while (!done) 
     {
         SDL_Event event;
@@ -33,11 +34,13 @@ int main(int argc, char *argv[])
                     break;
                 case SDL_MOUSEMOTION:
                     draw = true;
+                    x = event.motion.x;
+                    y = event.motion.y;
                     break;
             }
         }
         if (draw) {
-            SDL_Rect rect = {50, 50, 100, 100};
+            SDL_Rect rect = {x, y, 100, 100};
             SDL_FillRect(surface, &rect, 0x00FF0000);
             SDL_UpdateWindowSurface(window);
             SDL_Delay(delay_milliseconds);
