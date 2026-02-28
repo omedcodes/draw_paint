@@ -57,10 +57,17 @@ int main(int argc, char *argv[])
                 case SDL_QUIT:
                     done = true;
                     break;
+                case SDL_MOUSEMOTION:
+                    x = event.motion.x;
+                    y = event.motion.y;
+                    break;
                 case SDL_MOUSEBUTTONDOWN:
                     draw = true;
                     x = event.motion.x;
                     y = event.motion.y;
+                    break;
+                case SDL_MOUSEBUTTONUP:
+                    draw = false;
                     break;
             }
         }
