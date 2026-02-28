@@ -16,11 +16,9 @@ int main(int argc, char *argv[])
     SDL_Window *window = SDL_CreateWindow("Draw Paint", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0);
 
     SDL_Surface *surface = SDL_GetWindowSurface(window);
-    SDL_Rect rect = {50, 50, 100, 100};
-    SDL_FillRect(surface, &rect, 0x00FF0000);
-    SDL_UpdateWindowSurface(window);
 
     bool done = false;
+    bool draw = false;
 
     float delay_milliseconds = (1.0f / TARGET_FPS) * 1000;
     while (!done) 
@@ -28,10 +26,22 @@ int main(int argc, char *argv[])
         SDL_Event event;
         while (SDL_PollEvent(&event)) 
         {
-            if (event.type == SDL_QUIT)
-                done = true;
+            switch (event.type) 
+            {
+                case SDL_QUIT:
+                    done = true;
+                    break;
+                case SDL_MOUSEMOTION:
+                    draw = true;
+                    break;
+            }
         }
-        SDL_Delay(delay_milliseconds);
+        if (draw) {
+            SDL_Rect rect = {50, 50, 100, 100};
+            SDL_FillRect(surface, &rect, 0x00FF0000);
+            SDL_UpdateWindowSurface(window);
+            SDL_Delay(delay_milliseconds);
+        }
     }
 
     SDL_DestroyWindow(window);
