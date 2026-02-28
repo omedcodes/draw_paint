@@ -9,6 +9,12 @@
 
 #define TARGET_FPS 60
 
+// Render color palette consisting of size elements of colors on the top right corner
+void draw_palette(SDL_Surface* surface, Uint32 *colors, int size)
+{
+
+}
+
 void draw_circle(SDL_Surface *surface, int x_center, int y_center, int radius, Uint32 color)
 {
     SDL_Rect pixel = {0, 0, 1, 1};
@@ -45,6 +51,9 @@ int main(int argc, char *argv[])
     bool draw = false;
 
     float delay_milliseconds = (1.0f / TARGET_FPS) * 1000;
+
+    Uint32 color_palette[8] = {0x000000, 0xFFFFFF,0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00, 0x00FFFF, 0xFF00FF};
+
     int x, y;
     int radius = START_RADIUS;
     while (!done) 
