@@ -110,10 +110,9 @@ int main(int argc, char *argv[])
                     draw = false;
                     break;
                 case SDL_MOUSEWHEEL:
-                    Uint32 direction = event.wheel.direction;
+                    brush_size += event.wheel.preciseY;
                     if (brush_size < 1)
                         brush_size = 1;
-                    brush_size += event.wheel.preciseY;
                     break;
             }
         }
