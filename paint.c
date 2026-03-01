@@ -8,11 +8,17 @@
 #define START_RADIUS 20
 
 #define TARGET_FPS 60
+#define COLOR_RECT_SIZE 10
 
 // Render color palette consisting of size elements of colors on the top right corner
 void draw_palette(SDL_Surface* surface, Uint32 *colors, int size)
 {
-
+    SDL_Rect color_rect;
+    for (int i = 0; i < size; i++)
+    {
+        color_rect = (struct SDL_Rect){i*COLOR_RECT_SIZE, 0, COLOR_RECT_SIZE, COLOR_RECT_SIZE};
+        SDL_FillRect(surface, &color_rect, colors[i]);
+    }
 }
 
 void draw_circle(SDL_Surface *surface, int x_center, int y_center, int radius, Uint32 color)
@@ -82,6 +88,7 @@ int main(int argc, char *argv[])
         }
         if (draw) {
             draw_circle(surface, x, y, radius, 0x00FF0000);
+            draw_palette(surface, color_palette, sizeof(color_palette) / sizeof(color_palette[0]));
             SDL_UpdateWindowSurface(window);
             SDL_Delay(delay_milliseconds);
         }
