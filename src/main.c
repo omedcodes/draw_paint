@@ -9,9 +9,6 @@ int main(int argc, char *argv[]) {
 
     SDL_Surface *surface = SDL_GetWindowSurface(window);
     SDL_FillRect(surface, NULL, 0xFFFFFFFF);
-
-    Uint32 current_color = START_COLOR;
-    Uint32 palette[8] = {0x000000, 0xFFFFFF, 0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00, 0x00FFFF, 0xFF00FF};
     
     bool done = false;
     bool draw = false;
@@ -19,7 +16,7 @@ int main(int argc, char *argv[]) {
     int brush_size = START_RADIUS;
     float delay = (1.0f / TARGET_FPS) * 1000;
 
-    draw_palette(surface, palette, 8);
+    draw_palette(surface, palette, palette_size);
     SDL_UpdateWindowSurface(window);
     while (!done) {
         SDL_Event event;
@@ -59,7 +56,7 @@ int main(int argc, char *argv[]) {
                     }
                     if (event.key.keysym.sym == SDLK_c) {
                         SDL_FillRect(surface, NULL, 0xFFFFFFFF);
-                        draw_palette(surface, palette, 8);
+                        draw_palette(surface, palette, palette_size);
                         SDL_UpdateWindowSurface(window);
                     }
                     break;
@@ -77,7 +74,7 @@ int main(int argc, char *argv[]) {
             SDL_UpdateWindowSurface(window);
         }
 
-        draw_palette(surface, palette, 8);
+        draw_palette(surface, palette, palette_size);
         SDL_Delay(delay);
     }
 
