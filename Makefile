@@ -28,5 +28,9 @@ $(TARGET): $(SRC)
 	$(CC) $(CFLAGS) $(SRC) $(wildcard $(RES_O)) -o $(TARGET) $(if $(findstring release,$(MAKECMDGOALS)),$(LDFLAGS_RELEASE),$(LDFLAGS_BASE))
 
 clean:
+ifeq ($(OS),Windows_NT)
 	if exist $(TARGET).exe del $(TARGET).exe
 	if exist *.res del *.res
+else
+	rm -f $(TARGET) *.res
+endif

@@ -5,4 +5,5 @@
 *.lib
 *.dll
 *.res
+*.bmp
 .vscode/
