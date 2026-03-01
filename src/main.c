@@ -19,6 +19,8 @@ int main(int argc, char *argv[]) {
     int brush_size = START_RADIUS;
     float delay = (1.0f / TARGET_FPS) * 1000;
 
+    draw_palette(surface, palette, 8);
+    SDL_UpdateWindowSurface(window);
     while (!done) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
@@ -57,6 +59,7 @@ int main(int argc, char *argv[]) {
                     }
                     if (event.key.keysym.sym == SDLK_c) {
                         SDL_FillRect(surface, NULL, 0xFFFFFFFF);
+                        draw_palette(surface, palette, 8);
                         SDL_UpdateWindowSurface(window);
                     }
                     break;
