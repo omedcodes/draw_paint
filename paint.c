@@ -20,7 +20,7 @@ bool inside_palette(int x, int y)
     return x <= palette_size * COLOR_RECT_SIZE && y <= COLOR_RECT_SIZE;
 }
 
-// Check if user clicked color palette and updates the current color
+// check if user clicked color palette and updates the current color
 void change_color(int x, int y) 
 {
     int i;
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
     float delay_milliseconds = (1.0f / TARGET_FPS) * 1000;
 
     int x, y;
-    int radius = START_RADIUS;
+    int brush_size = START_RADIUS;
 
     draw_palette(surface, color_palette, palette_size);
     SDL_UpdateWindowSurface(window);
@@ -109,14 +109,20 @@ int main(int argc, char *argv[])
                 case SDL_MOUSEBUTTONUP:
                     draw = false;
                     break;
+                case SDL_MOUSEWHEEL:
+                    Uint32 direction = event.wheel.direction;
+                    if (brush_size < 1)
+                        brush_size = 1;
+                    brush_size += event.wheel.preciseY;
+                    break;
             }
         }
         if (draw) {
-            draw_circle(surface, x, y, radius, color);
+            draw_circle(surface, x, y, brush_size, color);
             SDL_UpdateWindowSurface(window);
-            SDL_Delay(delay_milliseconds);
         }
         draw_palette(surface, color_palette, palette_size);
+        SDL_Delay(delay_milliseconds);
     }
 
     SDL_DestroyWindow(window);
