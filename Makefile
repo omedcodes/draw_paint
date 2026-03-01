@@ -3,13 +3,13 @@ WINDRES = windres
 CFLAGS = -std=c23 -Wall -Wextra
 
 SRC_DIR = src
-BUILD_DIR = build
+BIN_DIR = bin
 ASSETS_DIR = assets
 
-TARGET = $(BUILD_DIR)/DrawPaint
+TARGET = $(BIN_DIR)/DrawPaint
 SRC = $(SRC_DIR)/main.c $(SRC_DIR)/paint.c
 RES_RC = resource.rc
-RES_O = $(BUILD_DIR)/resource.res
+RES_O = $(BIN_DIR)/resource.res
 
 LDFLAGS_BASE = -lmingw32 -lSDL2main -lSDL2 -lm
 
@@ -18,7 +18,7 @@ LDFLAGS_BASE = -lmingw32 -lSDL2main -lSDL2 -lm
 all: prep $(TARGET)
 
 prep:
-	@if not exist "$(BUILD_DIR)" mkdir "$(BUILD_DIR)"
+	@if not exist "$(BIN_DIR)" mkdir "$(BIN_DIR)"
 	@if not exist "$(ASSETS_DIR)" mkdir "$(ASSETS_DIR)"
 
 debug: CFLAGS += -g
@@ -35,4 +35,4 @@ $(TARGET): $(SRC)
 	$(CC) $(CFLAGS) $(SRC) $(wildcard $(RES_O)) -o $(TARGET) $(if $(findstring release,$(MAKECMDGOALS)),$(LDFLAGS_RELEASE),$(LDFLAGS_BASE))
 
 clean:
-	@if exist "$(BUILD_DIR)" rd /s /q "$(BUILD_DIR)"
+	@if exist "$(BIN_DIR)" rd /s /q "$(BIN_DIR)"
