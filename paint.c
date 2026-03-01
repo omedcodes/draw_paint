@@ -15,10 +15,21 @@ Uint32 color = START_COLOR;
 Uint32 color_palette[8] = {0x000000, 0xFFFFFF,0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00, 0x00FFFF, 0xFF00FF};
 const int palette_size = sizeof(color_palette) / sizeof(color_palette[0]);
 
-// Check if user clicked color palette and updates the current color
-Uint32 change_color(int x, int y) 
+bool inside_palette(int x, int y) 
 {
+    return x <= palette_size * COLOR_RECT_SIZE && y <= COLOR_RECT_SIZE;
+}
 
+// Check if user clicked color palette and updates the current color
+void change_color(int x, int y) 
+{
+    int i;
+    if (inside_palette(x, y))
+    {
+        // mouse inside y range of color palette
+        i = x / COLOR_RECT_SIZE;
+        color = color_palette[i];
+    }
 }
 
 // Render color palette consisting of size elements of colors on the top right corner
@@ -89,10 +100,11 @@ int main(int argc, char *argv[])
                     y = event.motion.y;
                     break;
                 case SDL_MOUSEBUTTONDOWN:
-                    draw = true;
                     x = event.motion.x;
                     y = event.motion.y;
-                    color = change_color(x, y);
+                    if (inside_palette(x, y))
+                        change_color(x, y);
+                    else draw = true;
                     break;
                 case SDL_MOUSEBUTTONUP:
                     draw = false;
