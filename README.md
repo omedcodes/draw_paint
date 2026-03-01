@@ -12,8 +12,8 @@ Draw Paint is about the joy of putting pixels on a screen with code that I wrote
 * **Color Palette:** Quick access colors at the top of your screen.
 * **Portable:** Compiles into a single, standalone executable for Windows.
 
-![App Showcase](screenshots/showcase.png)
-![Drawing Landscape](screenshots/landscape_example.png)
+![App Showcase](./screenshots/showcase.png)
+![Drawing Landscape](./screenshots/landscape_example.png)
 
 ## How to Use
 The interface is designed to stay out of your way so you can just focus on creating.
@@ -40,9 +40,17 @@ Builds with extra info for debugging and keeps the console window open.
 * **Windows:** `mingw32-make debug`
 * **Linux/macOS:** `make debug`
 
-### 2. Distribution (Release Mode)
-Optimizes the code for speed and hides the console window (Recommended).
+### 2. Distribution (Release Mode - Recommended)
+Optimizes the code for speed and hides the console window.
 * **Windows:** `mingw32-make release`
 * **Linux/macOS:** `make release`
 
 ## Extras
+
+### License
+This project is licensed under the **MIT License**. This means you are free to use, modify, and distribute the code however you like, as long as you provide credit. See the [LICENSE](./LICENSE) file for details.
+
+### Credits
+* **SDL2 Team:** For the amazing cross platform library that makes hardware access possible.
+* **The C Community:** For keeping the most powerful language in the world alive for over 50 years.
+* **You:** For checking out my project! If you like it feel free to give it a ⭐ on GitHub.
