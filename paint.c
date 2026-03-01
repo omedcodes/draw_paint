@@ -6,9 +6,20 @@
 #define WIDTH 900
 #define HEIGHT 600
 #define START_RADIUS 20
+#define START_COLOR 0x00FF0000
 
 #define TARGET_FPS 60
-#define COLOR_RECT_SIZE 10
+#define COLOR_RECT_SIZE 20
+
+Uint32 color = START_COLOR;
+Uint32 color_palette[8] = {0x000000, 0xFFFFFF,0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00, 0x00FFFF, 0xFF00FF};
+const int palette_size = sizeof(color_palette) / sizeof(color_palette[0]);
+
+// Check if user clicked color palette and updates the current color
+Uint32 change_color(int x, int y) 
+{
+
+}
 
 // Render color palette consisting of size elements of colors on the top right corner
 void draw_palette(SDL_Surface* surface, Uint32 *colors, int size)
@@ -58,10 +69,11 @@ int main(int argc, char *argv[])
 
     float delay_milliseconds = (1.0f / TARGET_FPS) * 1000;
 
-    Uint32 color_palette[8] = {0x000000, 0xFFFFFF,0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00, 0x00FFFF, 0xFF00FF};
-
     int x, y;
     int radius = START_RADIUS;
+
+    draw_palette(surface, color_palette, palette_size);
+    SDL_UpdateWindowSurface(window);
     while (!done) 
     {
         SDL_Event event;
@@ -80,6 +92,7 @@ int main(int argc, char *argv[])
                     draw = true;
                     x = event.motion.x;
                     y = event.motion.y;
+                    color = change_color(x, y);
                     break;
                 case SDL_MOUSEBUTTONUP:
                     draw = false;
@@ -87,11 +100,11 @@ int main(int argc, char *argv[])
             }
         }
         if (draw) {
-            draw_circle(surface, x, y, radius, 0x00FF0000);
-            draw_palette(surface, color_palette, sizeof(color_palette) / sizeof(color_palette[0]));
+            draw_circle(surface, x, y, radius, color);
             SDL_UpdateWindowSurface(window);
             SDL_Delay(delay_milliseconds);
         }
+        draw_palette(surface, color_palette, palette_size);
     }
 
     SDL_DestroyWindow(window);
